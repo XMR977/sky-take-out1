@@ -166,7 +166,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void update(Employee employee) {
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO,employee);
         Long userid = BaseContext.getCurrentId();
         employee.setUpdateTime(now());
         employee.setUpdateUser(userid);

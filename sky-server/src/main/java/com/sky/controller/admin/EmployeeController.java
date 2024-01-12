@@ -119,13 +119,13 @@ public class EmployeeController {
 
     /**
      * update
-     * @param employee
+     * @param employeeDTO
      * @return
      */
     @PutMapping
     @ApiOperation("update employee")
-    public Result update(@RequestBody Employee employee){
-        employeeService.update(employee);
+    public Result update(@RequestBody EmployeeDTO employeeDTO){
+        employeeService.update(employeeDTO);
         return Result.success();
     }
 

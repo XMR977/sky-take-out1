@@ -23,7 +23,7 @@ public interface EmployeeService {
     void status(Integer status, Long id);
 
     Employee findbyid(Long id);
-    void update(Employee employee);
+    void update(EmployeeDTO employeeDTO);
 
 
 }
