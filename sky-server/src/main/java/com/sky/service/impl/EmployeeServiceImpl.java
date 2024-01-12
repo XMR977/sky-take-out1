@@ -96,8 +96,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employee.setStatus(StatusConstant.ENABLE);
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
-        employee.setCreateTime(now());
-        employee.setUpdateTime(now());
+//        employee.setCreateTime(now());
+//        employee.setUpdateTime(now());
 
         //maybe works in this way?
 //        HttpServletRequest request;
@@ -105,11 +105,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 //        Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
 //        Long empId = Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());
         //get user id from ThreadLocal!
-        Long userid = BaseContext.getCurrentId();
-        employee.setCreateUser(userid);
-        employee.setUpdateUser(userid);
-
-        BaseContext.removeCurrentId();
+//        Long userid = BaseContext.getCurrentId();
+//        employee.setCreateUser(userid);
+//        employee.setUpdateUser(userid);
+//
+//        BaseContext.removeCurrentId();
 
         employeeMapper.insert(employee);
 
@@ -141,7 +141,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void status(Integer status, Long id) {
 
-        Long userid = BaseContext.getCurrentId();
+//        Long userid = BaseContext.getCurrentId();
 //        Employee employee = new Employee();
 //        employee.setUpdateTime(now());
 
@@ -150,8 +150,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = Employee.builder()
                 .status(status)
                 .id(id)
-                .updateTime(now())
-                .updateUser(userid)
+//                .updateTime(now())
+//                .updateUser(userid)
                 .build();
 
         employeeMapper.status(employee);
@@ -159,8 +159,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findbyid(Long id) {
-        Employee employee = new Employee();
-        employee = employeeMapper.findbyid(id);
+
+        Employee employee = employeeMapper.findbyid(id);
         employee.setPassword("****");
         return  employee;
     }
@@ -169,9 +169,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO,employee);
-        Long userid = BaseContext.getCurrentId();
-        employee.setUpdateTime(now());
-        employee.setUpdateUser(userid);
+//        Long userid = BaseContext.getCurrentId();
+//        employee.setUpdateTime(now());
+//        employee.setUpdateUser(userid);
         employeeMapper.status(employee);
     }
 
