@@ -6,6 +6,7 @@ import com.sky.entity.Employee;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface EmployeeMapper {
@@ -27,9 +28,22 @@ public interface EmployeeMapper {
     void insert(Employee employee);
 
     /**
-     *
+     *page query
      * @param employeePageQueryDTO
      * @return
      */
     Page<Employee> query(EmployeePageQueryDTO employeePageQueryDTO);
+
+    /**
+     * update
+     * @param employee
+     */
+    void status(Employee employee);
+
+    /**
+     * find by id
+     * @param id
+     */
+    @Select("select * from employee where id = #{id}")
+    Employee findbyid(Long id);
 }

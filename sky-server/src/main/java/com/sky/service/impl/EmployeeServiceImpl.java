@@ -41,6 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
 
+
     /**
      * 员工登录
      *
@@ -54,11 +55,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         //1、根据用户名查询数据库中的数据
         Employee employee = employeeMapper.getByUsername(username);
 
+
         //2、处理各种异常情况（用户名不存在、密码不对、账号被锁定）
         if (employee == null) {
             //账号不存在
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+
         }
+
 
         //密码比对
         // TODO 进行md5加密，然后再进行比对
@@ -79,7 +83,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     /**
-     *
+     *new employee
      * @param employeeDTO
      */
     @Override
@@ -112,7 +116,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     /**
-     *
+     *page query
      * @param employeePageQueryDTO
      * @return
      */
@@ -127,6 +131,46 @@ public class EmployeeServiceImpl implements EmployeeService {
         PageResult pageResult = new PageResult(total,records);
 
         return pageResult;
+    }
+
+    /**
+     * status
+     * @param status
+     * @param id
+     */
+    @Override
+    public void status(Integer status, Long id) {
+
+        Long userid = BaseContext.getCurrentId();
+//        Employee employee = new Employee();
+//        employee.setUpdateTime(now());
+
+//        employee.setUpdateUser(userid);
+
+        Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .updateTime(now())
+                .updateUser(userid)
+                .build();
+
+        employeeMapper.status(employee);
+    }
+
+    @Override
+    public Employee findbyid(Long id) {
+        Employee employee = new Employee();
+        employee = employeeMapper.findbyid(id);
+        employee.setPassword("****");
+        return  employee;
+    }
+
+    @Override
+    public void update(Employee employee) {
+        Long userid = BaseContext.getCurrentId();
+        employee.setUpdateTime(now());
+        employee.setUpdateUser(userid);
+        employeeMapper.status(employee);
     }
 
 

@@ -98,5 +98,36 @@ public class EmployeeController {
         return Result.success(p);
     }
 
+    @PostMapping("/status/{status}")
+    @ApiOperation("account authority")
+    public Result status(@PathVariable("status") Integer status, Long id){
+        employeeService.status(status,id);
+        return Result.success();
+    }
+
+    /**
+     * find by id
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("find by id")
+    public Result<Employee> findbyid(@PathVariable Long id){
+        Employee employee = employeeService.findbyid(id);
+        return Result.success(employee);
+    }
+
+    /**
+     * update
+     * @param employee
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("update employee")
+    public Result update(@RequestBody Employee employee){
+        employeeService.update(employee);
+        return Result.success();
+    }
+
 
 }
