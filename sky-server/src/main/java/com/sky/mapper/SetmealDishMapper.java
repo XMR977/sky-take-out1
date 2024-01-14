@@ -11,8 +11,8 @@ import java.util.List;
 public interface SetmealDishMapper {
 
 //    @Select("select * from setmeal_dish where dish_id = #{id} ")
-    List<Integer> getById(List<Integer> id);
+    List<Long> getById(List<Long> id);
 
     @Delete("delete from setmeal_dish where dish_id = #{id}")
-    void deletebydishid(List<Integer> id);
+    void deletebydishid(List<Long> id);
 }

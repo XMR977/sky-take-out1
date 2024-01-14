@@ -10,6 +10,7 @@ import com.sky.result.Result;
 import com.sky.service.CategoryService;
 import com.sky.service.DishService;
 import com.sky.service.impl.DishServiceImpl;
+import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -47,10 +48,26 @@ public class DishController {
 
     @DeleteMapping
     @ApiOperation("delete dish")
-    public  Result deletedish(@RequestParam List<Integer> ids){
-
+    public  Result deletedish(@RequestParam List<Long> ids){
+        log.info("delete dish:{}",ids);
         dishService.deletedish(ids);
 
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation("find dish by id")
+    public Result<DishVO> findbyid (@PathVariable Long id){
+        log.info("find dish by id:{}", id);
+        DishVO dishVO = dishService.getbyid(id);
+        return Result.success(dishVO);
+    }
+
+    @PutMapping
+    @ApiOperation("update dish")
+    public Result update(@RequestBody DishDTO dishDTO){
+        log.info("update dish:{}",dishDTO.getName());
+        dishService.update(dishDTO);
         return Result.success();
     }
 }

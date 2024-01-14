@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.SetmealDishMapper">
 
-    <select id="getById" resultType="java.lang.Integer">
+    <select id="getById" resultType="java.lang.Long">
         select id from setmeal_dish where dish_id in 
                                     <foreach collection="id" item="dish_ids" separator="," open="(" close=")">
                                         #{id}

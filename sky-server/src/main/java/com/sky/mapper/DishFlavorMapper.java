@@ -13,5 +13,7 @@ public interface DishFlavorMapper {
 
     void insertFlavor(List<DishFlavor> flavors);
 
-    void deleteflavorbyid(Integer id);
+    void deleteflavorbyid(Long id);
+
+     List<DishFlavor> getflavorbyid(Long id);
 }

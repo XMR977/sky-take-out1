@@ -37,8 +37,16 @@ public interface DishMapper {
      */
     Page<DishVO> query(DishPageQueryDTO dishPageQueryDTO);
 
-    void deletebyid(List<Integer> ids);
+    /**
+     * delete
+     * @param ids
+     */
+    void deletebyid(List<Long> ids);
 
-    @Select("select status from dish where id =#{id}")
-    Dish getById(Integer id);
+    @Select("select * from dish where id =#{id}")
+    Dish getById(Long id);
+
+    @AutoFill(value = OperationType.UPDATE)
+     void update(Dish dish) ;
+
 }
