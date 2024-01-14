@@ -6,3 +6,9 @@ sky:
     database: sky_take_out
     username: root
     password: 9755
+
+  awsoss:
+    access-key-id: AKIATCKAMTODGHGDFV4H
+    access-key-secret: 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
+    bucket-name: skytakeout
+
