@@ -70,4 +70,20 @@ public class DishController {
         dishService.update(dishDTO);
         return Result.success();
     }
+
+    @GetMapping("/list")
+    @ApiOperation("list")
+    public Result<List<Dish>> list(Long categoryId){
+        log.info("List dish by categoryid");
+        List<Dish> dish = dishService.list(categoryId);
+        return Result.success(dish);
+    }
+
+    @PostMapping("/status/{status}")
+    @ApiOperation("start")
+    public Result start(@PathVariable Integer status, Long id){
+        log.info("start dish");
+        dishService.start(status,id);
+        return Result.success();
+    }
 }

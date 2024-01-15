@@ -15,6 +15,7 @@ import com.sky.entity.Setmeal;
 import com.sky.entity.SetmealDish;
 import com.sky.enumeration.OperationType;
 import com.sky.exception.DeletionNotAllowedException;
+import com.sky.exception.DishDisableFailedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealDishMapper;
@@ -44,6 +45,9 @@ public class DishServiceImpl implements DishService {
 
     @Autowired
     public SetmealDishMapper setmealDishMapper;
+
+    @Autowired
+    public SetmealMapper setmealMapper;
 
     @Override
     public PageResult pagequery(DishPageQueryDTO dishPageQueryDTO) {
@@ -125,6 +129,46 @@ public class DishServiceImpl implements DishService {
         }
     }
 
+    /**
+     * query by category id
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Dish> list(Long categoryId) {
+        Dish dish = Dish.builder()
+                .categoryId(categoryId)
+                .status(StatusConstant.ENABLE)
+                .build();
+        return dishMapper.list(dish);
+    }
+
+    /**
+     * start or stop dish
+     * @param status
+     * @param id
+     */
+
+    @Override
+    public void start(Integer status, Long id) {
+
+        List<SetmealDish> setmealDish = setmealDishMapper.getbydishid(id);
+        setmealDish.forEach(setmealDish1 -> {
+            Long ids = setmealDish1.getSetmealId();
+            Setmeal setmeal = setmealMapper.getbysmid(ids);
+            if (setmeal.getStatus() == StatusConstant.ENABLE) {
+                throw new DishDisableFailedException(MessageConstant.SETMEAL_WITH_DISH);
+            }
+        });
+
+
+        Dish dish = Dish.builder()
+                .status(status)
+                .id(id)
+                .build();
+        dishMapper.update(dish);
+
+    }
     /**
      * add dish and dish flavor
      * @param dishDTO

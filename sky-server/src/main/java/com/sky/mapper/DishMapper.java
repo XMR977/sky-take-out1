@@ -22,6 +22,8 @@ public interface DishMapper {
     @Select("select count(id) from dish where category_id = #{categoryId}")
     Integer countByCategoryId(Long categoryId);
 
+//    @Select("select * from dish where category_id = #{categoryId};")
+    List<Dish> list(Dish dish);
     /**
      * insert dish
      * @param dish
@@ -49,4 +51,5 @@ public interface DishMapper {
     @AutoFill(value = OperationType.UPDATE)
      void update(Dish dish) ;
 
+    List<Dish> getBysmid(Long id);
 }
