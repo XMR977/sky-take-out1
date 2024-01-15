@@ -11,4 +11,9 @@ sky:
     access-key-id: AKIATCKAMTODGHGDFV4H
     access-key-secret: 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
     bucket-name: skytakeout
-
+  Spring:
+    redis:
+      host: localhost
+      port: 6379
+      password: 123456
+      database: 1
